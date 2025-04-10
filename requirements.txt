@@ -1,0 +1,16 @@
+albumentations==1.4.3
+efficientnet_pytorch==0.7.1
+future==1.0.0
+matplotlib==3.8.2
+numpy==1.26.4
+opencv_python==4.11.0.86
+pandas==2.2.3
+plotly==5.20.0
+scikit_learn==1.6.1
+scipy==1.15.2
+tensorboard==2.18.0
+torch==2.6.0
+torchvision==0.21.0
+tqdm==4.66.2
+wfdb==4.1.2
+Pillow==10.2.0
