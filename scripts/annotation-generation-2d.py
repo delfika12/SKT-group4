@@ -1,7 +1,6 @@
 import json
 import os.path as osp
 from glob import glob
-
 import pandas as pd
 
 # 1. N - Normal
@@ -24,19 +23,28 @@ random_state = 7
 
 if __name__ == "__main__":
     dataset = []
-    files = glob(data_path)
+    files = glob(data_path)  # This fetches all the files matching the pattern
 
-    for file in glob(data_path):
-        *_, name, lead, label, filename = file.split("/")
-        dataset.append(
-            {
-                "name": name,
-                "lead": lead,
-                "label": label,
-                "filename": osp.splitext(filename)[0],
-                "path": file,
-            },
-        )
+    for file in files:
+        try:
+            # Split the file path
+            *_, name, lead_part, label, filename = file.split("/")
+            
+            # Ensure that we have the expected number of parts
+            if len([name, lead_part, label, filename]) == 4:
+                dataset.append(
+                    {
+                        "name": name,
+                        "lead": lead_part,  # Using lead_part to avoid name collision
+                        "label": label,
+                        "filename": osp.splitext(filename)[0],
+                        "path": file,
+                    }
+                )
+            else:
+                print(f"Skipping invalid file path: {file}")
+        except ValueError:
+            print(f"Error processing file path: {file}")
 
     data = pd.DataFrame(dataset)
     data = data[data["lead"] == lead]
